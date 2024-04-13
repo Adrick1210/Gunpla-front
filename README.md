@@ -9,6 +9,7 @@ The user can browse the page like a E-Commerce shopping app.
 ## Resources
 - Material UI
 - React
+- Typescript
 - CSS
 
 ## Links
