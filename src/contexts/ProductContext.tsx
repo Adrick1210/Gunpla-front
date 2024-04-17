@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect, ReactNode } from "react";
 
 type Product = {
+  _id: string;
   brand: string;
   name: string;
   boxArt: string;
@@ -39,7 +40,7 @@ export const ProductProvider = ({ children }: ProviderProps) => {
       try {
         const res = await fetch(`${URL}/products`);
         const productsData = await res.json();
-        setProducts(productsData);
+        setProducts(productsData.products);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -64,7 +65,7 @@ export const ProductProvider = ({ children }: ProviderProps) => {
   };
 
   return (
-    <ProductContext.Provider value={ contextValue }>
+    <ProductContext.Provider value={contextValue}>
       {children}
     </ProductContext.Provider>
   );
