@@ -4,12 +4,16 @@ import {
   Route,
 } from "react-router-dom";
 import App from "./App";
-import Index from "./pages/Index";
+import ProductPage from "./pages/ProductPage";
+import ProductView from "./pages/ProductView";
+import Cart from "./pages/Cart";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route path="" element={<Index />} />
+      <Route path="" element={<ProductPage />} />
+      <Route path="/products/:id" element={<ProductView/>}/>
+      <Route path="/cart" element={<Cart/>}/>
     </Route>
   )
 );
