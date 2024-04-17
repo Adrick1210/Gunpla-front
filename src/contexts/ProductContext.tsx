@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, ReactNode } from "react";
+import React, { createContext, useState, ReactNode } from "react";
 
 type Product = {
   _id: string;
@@ -35,25 +35,11 @@ export const ProductProvider = ({ children }: ProviderProps) => {
 
   const URL = process.env.REACT_APP_URL;
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await fetch(`${URL}/products`);
-        const productsData = await res.json();
-        setProducts(productsData.products);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-
-    fetchProducts();
-  }, [URL]);
-
-  const productsLoader = async () => {
+   const productsLoader = async () => {
     try {
       const res = await fetch(`${URL}/products`);
       const productsData = await res.json();
-      setProducts(productsData);
+      setProducts(productsData.products);
     } catch (err) {
       console.error("error fetching products", err);
     }
