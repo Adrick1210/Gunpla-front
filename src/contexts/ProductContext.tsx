@@ -5,7 +5,7 @@ export type Product = {
   brand: string;
   name: string;
   boxArt: string;
-  price: number;
+  price: {$numberDecimal: number};
   inventory: number;
   description: string;
   grade: string;
@@ -20,9 +20,11 @@ type ProviderProps = {
 // for every new function, add into this type
 type ProductContextType = {
   products: Product[];
-  productsLoader: () => Promise<void>;
+  productsLoader: (page: number) => Promise<void>;
   product: Product;
   productLoader: (id: string) => Promise<void>;
+  page: number;
+  totalPages: number;
 };
 
 const initialState: ProductContextType = {
@@ -30,6 +32,8 @@ const initialState: ProductContextType = {
   productsLoader: async () => {},
   product: {} as Product,
   productLoader: async () => {},
+  page: 1,
+  totalPages: 0,
 };
 
 export const ProductContext = createContext<ProductContextType>(initialState);
@@ -37,14 +41,18 @@ export const ProductContext = createContext<ProductContextType>(initialState);
 export const ProductProvider = ({ children }: ProviderProps) => {
   const [products, setProducts] = useState([] as Product[]);
   const [product, setProduct] = useState({} as Product);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
   const URL = process.env.REACT_APP_URL;
 
-   const productsLoader = async () => {
+   const productsLoader = async (page: number) => {
     try {
-      const res = await fetch(`${URL}/products`);
+      const res = await fetch(`${URL}/products?page=${page}`);
       const productsData = await res.json();
       setProducts(productsData.products);
+      setPage(productsData.currentPage);
+      setTotalPages(productsData.totalPages)
     } catch (err) {
       console.error("error fetching products", err);
     }
@@ -65,6 +73,8 @@ export const ProductProvider = ({ children }: ProviderProps) => {
     productsLoader,
     product,
     productLoader,
+    page,
+    totalPages,
   };
 
   return (

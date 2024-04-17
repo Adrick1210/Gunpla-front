@@ -24,7 +24,7 @@ export default function ProductCard({ product }: { product: Product }) {
             {product.name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {product.description}
+            ${product.price.$numberDecimal}
           </Typography>
         </CardContent>
       </CardActionArea>
