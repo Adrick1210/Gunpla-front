@@ -5,12 +5,10 @@ import { useContext } from "react";
 import { ProductContext } from "../contexts/ProductContext";
 
 function Index() {
-  const {page, totalPages, productsLoader } = useContext(ProductContext);
+  const { page, totalPages, productsLoader } = useContext(ProductContext);
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    console.log(value);
     productsLoader(value);
   };
-  console.log(page, totalPages);
   return (
     <div className="main-container">
       <div className="showcase">
@@ -21,8 +19,19 @@ function Index() {
       </div>
       <Products />
 
-      <Stack spacing={2} paddingBottom={3} justifyContent={"center"} alignItems={"center"} paddingTop={3}>
-        <Pagination count={totalPages} shape="rounded" page={page} onChange={handleChange}/>
+      <Stack
+        spacing={2}
+        paddingBottom={3}
+        justifyContent={"center"}
+        alignItems={"center"}
+        paddingTop={3}
+      >
+        <Pagination
+          count={totalPages}
+          shape="rounded"
+          page={page}
+          onChange={handleChange}
+        />
       </Stack>
     </div>
   );

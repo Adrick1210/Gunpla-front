@@ -8,8 +8,8 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import HomeIcon from '@mui/icons-material/Home';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useNavigate } from "react-router-dom";
 
 type Props = {
@@ -27,11 +27,11 @@ export default function TemporaryDrawer({ open, setDrawerOpen }: Props) {
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
-        {[{ label: "Products", path: "/" },{label: "Cart", path: "/cart"}].map((link, index) => (
+        {[{ label: "Home", path: "/" },{label: "Cart", path: "/cart"}].map((link, index) => (
           <ListItem key={link.label} disablePadding>
             <ListItemButton onClick={() => navigate(link.path)}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {index % 2 === 0 ? <HomeIcon/> : <ShoppingCartIcon />}
               </ListItemIcon>
               <ListItemText primary={link.label} />
             </ListItemButton>
@@ -40,7 +40,7 @@ export default function TemporaryDrawer({ open, setDrawerOpen }: Props) {
       </List>
     </Box>
   );
-  console.log(open);
+  // console.log(open);
   return (
     <div>
       {/* <Button onClick={toggleDrawer(true)}>Open drawer</Button> */}
