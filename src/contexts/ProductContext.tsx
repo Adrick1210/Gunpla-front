@@ -1,4 +1,4 @@
-import React, { createContext, useState, ReactNode } from "react";
+import React, { createContext, useState, ReactNode, useEffect } from "react";
 
 export type cartState = {
   [key: string]: number;
@@ -58,10 +58,24 @@ export const ProductProvider = ({ children }: ProviderProps) => {
   const [product, setProduct] = useState({} as Product);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [cart, setCart] = useState<cartState>({});
+  const [cart, setCart] = useState<cartState>(() => {
+    const storedCart = localStorage.getItem("cart");
+    return storedCart ? JSON.parse(storedCart) : {};
+  });
   const [populatedCart, setPopulatedCart] = useState<Product[]>([]);
 
   const URL = process.env.REACT_APP_URL;
+
+  useEffect(() => {
+    const storedCart = localStorage.getItem("cart");
+    if (storedCart) {
+      setCart(JSON.parse(storedCart));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   const productsLoader = async (page: number) => {
     try {
