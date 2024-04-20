@@ -35,6 +35,7 @@ type ProductContextType = {
   removeFromCart: (productId: string) => void;
   populatedCart: Product[];
   populateCart: () => void;
+  cartItemCount: number;
 };
 
 const initialState: ProductContextType = {
@@ -49,6 +50,7 @@ const initialState: ProductContextType = {
   removeFromCart: (productId: string) => {},
   populatedCart: [] as Product[],
   populateCart: () => {},
+  cartItemCount: 0,
 };
 
 export const ProductContext = createContext<ProductContextType>(initialState);
@@ -63,6 +65,7 @@ export const ProductProvider = ({ children }: ProviderProps) => {
     return storedCart ? JSON.parse(storedCart) : {};
   });
   const [populatedCart, setPopulatedCart] = useState<Product[]>([]);
+  const [cartItemCount, setCartItemCount] = useState(0);
 
   const URL = process.env.REACT_APP_URL;
 
@@ -75,6 +78,11 @@ export const ProductProvider = ({ children }: ProviderProps) => {
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
+  useEffect(() => {
+    const count = Object.values(cart).reduce((total, quantity) => total + quantity, 0);
+    setCartItemCount(count);
   }, [cart]);
 
   const productsLoader = async (page: number) => {
@@ -158,6 +166,7 @@ export const ProductProvider = ({ children }: ProviderProps) => {
     removeFromCart,
     populatedCart,
     populateCart,
+    cartItemCount,
   };
 
   return (

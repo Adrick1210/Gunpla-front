@@ -1,18 +1,20 @@
-import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-// import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Drawer from "./Drawer";
 import { useState } from "react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Badge } from "@mui/material";
+import { useContext } from "react";
+import { ProductContext } from "../contexts/ProductContext";
 
 export default function ButtonAppBar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const { cartItemCount } = useContext(ProductContext);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -45,7 +47,7 @@ export default function ButtonAppBar() {
             aria-label="menu"
             sx={{ mr: 2 }}
           >
-            <Badge badgeContent={4} color="secondary">
+            <Badge badgeContent={cartItemCount} color="secondary">
               <ShoppingCartIcon />
             </Badge>
           </IconButton>
