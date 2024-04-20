@@ -15,10 +15,8 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
       console.error("Error fetching products:", error);
     }
   }, []);
-  // console.log(product)
 
   const handleAddToCart = () => {
-    // console.log("clicked");
     addToCart(product._id);
     alert("Item added to cart!")
   }
