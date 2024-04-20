@@ -33,6 +33,7 @@ type ProductContextType = {
   cart: cartState;
   addToCart: (productId: string) => void;
   removeFromCart: (productId: string) => void;
+  editCartItem: (productId: string, newQuantity: number) => void
   populatedCart: Product[];
   populateCart: () => void;
   cartItemCount: number;
@@ -48,6 +49,7 @@ const initialState: ProductContextType = {
   cart: {},
   addToCart: (productId: string) => {},
   removeFromCart: (productId: string) => {},
+  editCartItem: (productId: string, newQuantity: number) => {},
   populatedCart: [] as Product[],
   populateCart: () => {},
   cartItemCount: 0,
@@ -81,7 +83,10 @@ export const ProductProvider = ({ children }: ProviderProps) => {
   }, [cart]);
 
   useEffect(() => {
-    const count = Object.values(cart).reduce((total, quantity) => total + quantity, 0);
+    const count = Object.values(cart).reduce(
+      (total, quantity) => total + quantity,
+      0
+    );
     setCartItemCount(count);
   }, [cart]);
 
@@ -115,7 +120,6 @@ export const ProductProvider = ({ children }: ProviderProps) => {
     setCart((prevCart) => {
       const updatedCart = { ...prevCart };
       updatedCart[productId] = (updatedCart[productId] || 0) + 1;
-      console.log(updatedCart);
       return updatedCart;
     });
   };
@@ -128,6 +132,18 @@ export const ProductProvider = ({ children }: ProviderProps) => {
         if (updatedCart[productId] === 0) {
           delete updatedCart[productId];
         }
+      }
+      return updatedCart;
+    });
+  };
+
+  const editCartItem = (productId: string, newQuantity: number) => {
+    setCart((prevCart) => {
+      const updatedCart = { ...prevCart };
+      if (newQuantity <= 0) {
+        delete updatedCart[productId];
+      } else {
+        updatedCart[productId] = newQuantity;
       }
       return updatedCart;
     });
@@ -168,6 +184,7 @@ export const ProductProvider = ({ children }: ProviderProps) => {
     cart,
     addToCart,
     removeFromCart,
+    editCartItem,
     populatedCart,
     populateCart,
     cartItemCount,

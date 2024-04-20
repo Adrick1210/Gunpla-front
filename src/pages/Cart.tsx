@@ -5,7 +5,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Product } from "../contexts/ProductContext";
 
 function Cart() {
-  const { populateCart, populatedCart, removeFromCart } =
+  const { populateCart, populatedCart, removeFromCart, editCartItem } =
     useContext(ProductContext);
   const [cartItems, setCartItems] = useState<Product[]>([]);
 
@@ -28,6 +28,10 @@ function Cart() {
     );
   };
 
+  const handleEdit = (item: Product, newQuantity: number) => {
+    editCartItem(item._id, newQuantity);
+  };
+
   return (
     <div className="cart-container">
       <h1>Cart</h1>
@@ -40,7 +44,21 @@ function Cart() {
             </Link>
             <p>{item.name}</p>
             <p>${item.price.$numberDecimal}</p>
-            <p>Quantity: {item.quantity}</p>
+            <p>
+              Quantity:{' '}
+              <select
+                value={item.quantity}
+                onChange={(e) => handleEdit(item, parseInt(e.target.value))}
+              >
+                {Array.from({ length: 10 }, (_, index) => index + 1).map(
+                  (num) => (
+                    <option key={num} value={num}>
+                      {num}
+                    </option>
+                  )
+                )}
+              </select>
+            </p>
             <DeleteIcon
               sx={{ cursor: "pointer" }}
               onClick={() => handleRemoveFromCart(item._id)}
