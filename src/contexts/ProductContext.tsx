@@ -85,6 +85,10 @@ export const ProductProvider = ({ children }: ProviderProps) => {
     setCartItemCount(count);
   }, [cart]);
 
+  useEffect(() => {
+    populateCart();
+  }, [cart]);
+
   const productsLoader = async (page: number) => {
     try {
       const res = await fetch(`${URL}/products?page=${page}`);

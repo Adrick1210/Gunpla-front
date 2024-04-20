@@ -10,10 +10,15 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Badge } from "@mui/material";
 import { useContext } from "react";
 import { ProductContext } from "../contexts/ProductContext";
+import { Link } from "react-router-dom";
 
 export default function ButtonAppBar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { cartItemCount } = useContext(ProductContext);
+
+  const handleCartClick = () => {
+    window.location.replace("/cart");
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -46,9 +51,15 @@ export default function ButtonAppBar() {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
+            onClick={handleCartClick}
           >
             <Badge badgeContent={cartItemCount} color="secondary">
-              <ShoppingCartIcon />
+              <Link
+                to="/cart"
+                style={{ color: "inherit", textDecoration: "none" }}
+              >
+                <ShoppingCartIcon />
+              </Link>
             </Badge>
           </IconButton>
         </Toolbar>
