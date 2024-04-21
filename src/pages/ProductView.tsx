@@ -14,10 +14,11 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
     } catch (error) {
       console.error("Error fetching products:", error);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleAddToCart = () => {
-    addToCart(product._id);
+    addToCart(product._id, product);
     alert("Item added to cart!")
   }
 
