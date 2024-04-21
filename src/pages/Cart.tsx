@@ -9,6 +9,7 @@ function Cart() {
   const { populateCart, populatedCart, removeFromCart, editCartItem } =
     useContext(ProductContext);
   const [cartItems, setCartItems] = useState<Product[]>([]);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
 
   useEffect(() => {
     try {
@@ -21,6 +22,14 @@ function Cart() {
   useEffect(() => {
     setCartItems(populatedCart);
   }, [populatedCart]);
+
+  useEffect(() => {
+    const total = cartItems.reduce(
+      (acc, item) => acc + item.price.$numberDecimal * item?.quantity || 0,
+      0
+    );
+    setTotalPrice(total);
+  }, [cartItems]);
 
   const handleRemoveFromCart = (itemId: string) => {
     removeFromCart(itemId);
@@ -71,6 +80,8 @@ function Cart() {
           );
         })
       )}
+      {cartItems.length > 0 && <Divider />}
+      {cartItems.length > 0 && <p>Total Price: ${totalPrice.toFixed(2)}</p>}
     </div>
   );
 }

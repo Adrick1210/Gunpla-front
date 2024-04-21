@@ -15,7 +15,7 @@ export type Product = {
   grade: string;
   scale: string;
   releaseDate: Date;
-  quantity?: number;
+  quantity: number;
 };
 
 type ProviderProps = {
