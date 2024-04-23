@@ -8,6 +8,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { Button } from "@mui/material";
 
 function Cart() {
   const { cart, removeFromCart, editCartItem } = useContext(ProductContext);
@@ -30,6 +31,10 @@ function Cart() {
 
   const handleEdit = (item: Product, newQuantity: number) => {
     editCartItem(item._id, newQuantity);
+  };
+
+  const handleCheckClick = () => {
+    window.location.replace("/checkout");
   };
 
   return (
@@ -89,9 +94,16 @@ function Cart() {
           return null;
         })
       )}
-      {Object.keys(cart).length > 0 && <Divider />}
       {Object.keys(cart).length > 0 && (
-        <p>Total Price: ${totalPrice.toFixed(2)}</p>
+        <div className="subtotal-container">
+          <Divider />
+          <div className="subtotal">
+            <h2>Subtotal: ${totalPrice.toFixed(2)}</h2>
+            <Button variant="contained" color="success" onClick={handleCheckClick} sx={{ height: "40px" }}>
+              Proceed to Checkout
+            </Button>
+          </div>
+        </div>
       )}
     </div>
   );

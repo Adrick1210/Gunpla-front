@@ -101,3 +101,11 @@
   background-color: rgb(207, 202, 202);
   padding: 8px;
 }
+
+.subtotal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin-top: 15px;
+}
