@@ -1,9 +1,11 @@
-import React from 'react'
 
-export default function Total() {
+
+function Total() {
   return (
     <div>
-      Checkout
+      <h1>Checkout Page</h1>
+      <div></div>
     </div>
   )
 }
+export default Total;
