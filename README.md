@@ -17,6 +17,7 @@ Trello Board
 - https://trello.com/b/oQuGD0QS/gunpla-galaxy?openListComposer=true
 
 Netlify Deploy
+- https://gunpla-galaxy.netlify.app/
 
 ## Mockup
 Index 
