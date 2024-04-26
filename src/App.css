@@ -101,3 +101,31 @@
   background-color: rgb(207, 202, 202);
   padding: 8px;
 }
+
+.subtotal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin-top: 15px;
+}
+
+/* footer info */
+.footer {
+  text-align: center;
+  opacity: .7;
+  position: absolute;
+  bottom:25px;
+  left: 50px;
+}
+
+.icons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.icons img {
+  height: 22px;
+  opacity: .7;
+}

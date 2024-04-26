@@ -4,84 +4,107 @@ import { ProductContext } from "../contexts/ProductContext";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Product } from "../contexts/ProductContext";
 import { Divider } from "@mui/material";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import { Button } from "@mui/material";
 
 function Cart() {
-  const { populateCart, populatedCart, removeFromCart, editCartItem } =
-    useContext(ProductContext);
-  const [cartItems, setCartItems] = useState<Product[]>([]);
+  const { cart, removeFromCart, editCartItem } = useContext(ProductContext);
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
   useEffect(() => {
-    try {
-      populateCart();
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    }
-  }, []);
-
-  useEffect(() => {
-    setCartItems(populatedCart);
-  }, [populatedCart]);
-
-  useEffect(() => {
-    const total = cartItems.reduce(
-      (acc, item) => acc + item.price.$numberDecimal * item?.quantity || 0,
-      0
-    );
+    const total = Object.values(cart).reduce((acc, item) => {
+      if (item.product && item.product.price) {
+        return acc + item.product?.price?.$numberDecimal * item?.quantity || 0;
+      } else {
+        return acc;
+      }
+    }, 0);
     setTotalPrice(total);
-  }, [cartItems]);
+  }, [cart]);
 
   const handleRemoveFromCart = (itemId: string) => {
     removeFromCart(itemId);
-    setCartItems((cartItems) =>
-      cartItems.filter((item) => item._id !== itemId)
-    );
   };
 
   const handleEdit = (item: Product, newQuantity: number) => {
     editCartItem(item._id, newQuantity);
   };
 
+  const handleCheckClick = () => {
+    window.location.replace("/checkout");
+  };
+
   return (
     <div className="cart-container">
       <h1>Cart</h1>
-      {cartItems.length === 0 ? (
+      {Object.keys(cart).length === 0 ? (
         <h1>Your Cart is Empty!</h1>
       ) : (
-        cartItems.map((item) => {
-          const productPageUrl = `/products/${item._id}`;
-          return (
-            <div className="cart-card" key={item._id}>
-              <Link to={productPageUrl}>
-                <img src={item.boxArt} alt="cart box art" />
-              </Link>
-              <p>{item.name}</p>
-              <p>${item.price.$numberDecimal}</p>
-              <p>
-                Quantity:{" "}
-                <select
-                  value={item.quantity}
-                  onChange={(e) => handleEdit(item, parseInt(e.target.value))}
+        Object.keys(cart).map((productId) => {
+          const item = cart[productId].product;
+          const quantity = cart[productId].quantity;
+          console.log(item);
+          if (item) {
+            const productPageUrl = `/products/${item._id}`;
+            return (
+              <div className="cart-card" key={item._id}>
+                <Link to={productPageUrl}>
+                  <img src={item.boxArt} alt="cart box art" />
+                </Link>
+                <p>{item.name}</p>
+                <p>${item.price.$numberDecimal}</p>
+
+                <FormControl
+                  sx={{
+                    minWidth: "80px",
+                    marginLeft: "10px",
+                    marginRight: "10px",
+                  }}
                 >
-                  {Array.from({ length: 10 }, (_, index) => index + 1).map(
-                    (num) => (
-                      <option key={num} value={num}>
-                        {num}
-                      </option>
-                    )
-                  )}
-                </select>
-              </p>
-              <DeleteIcon
-                sx={{ cursor: "pointer" }}
-                onClick={() => handleRemoveFromCart(item._id)}
-              />
-            </div>
-          );
+                  <InputLabel id="demo-simple-select-label">
+                    Quantity
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={quantity}
+                    label="quantity"
+                    onChange={(e) => handleEdit(item, Number(e.target.value))}
+                  >
+                    {Array.from({ length: 10 }, (_, index) => index + 1).map(
+                      (num) => (
+                        <MenuItem value={num} key={num}>
+                          {num}
+                        </MenuItem>
+                      )
+                    )}
+                  </Select>
+                </FormControl>
+
+                <DeleteIcon
+                  sx={{ cursor: "pointer" }}
+                  onClick={() => handleRemoveFromCart(item._id)}
+                />
+              </div>
+            );
+          }
+          return null;
         })
       )}
-      {cartItems.length > 0 && <Divider />}
-      {cartItems.length > 0 && <p>Total Price: ${totalPrice.toFixed(2)}</p>}
+      {Object.keys(cart).length > 0 && (
+        <div className="subtotal-container">
+          <Divider />
+          <div className="subtotal">
+            <h2>Subtotal: ${totalPrice.toFixed(2)}</h2>
+            <Button variant="contained" color="success" onClick={handleCheckClick} sx={{ height: "40px" }}>
+              Proceed to Checkout
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,9 +1,5 @@
 import React, { createContext, useState, ReactNode, useEffect } from "react";
 
-export type cartState = {
-  [key: string]: number;
-};
-
 export type Product = {
   _id: string;
   brand: string;
@@ -16,6 +12,13 @@ export type Product = {
   scale: string;
   releaseDate: Date;
   quantity: number;
+};
+
+export type cartState = {
+  [key: string]: {
+    quantity: number;
+    product?: Product;
+  };
 };
 
 type ProviderProps = {
@@ -31,11 +34,9 @@ type ProductContextType = {
   page: number;
   totalPages: number;
   cart: cartState;
-  addToCart: (productId: string) => void;
+  addToCart: (productId: string, product: Product) => void;
   removeFromCart: (productId: string) => void;
-  editCartItem: (productId: string, newQuantity: number) => void
-  populatedCart: Product[];
-  populateCart: () => void;
+  editCartItem: (productId: string, newQuantity: number) => void;
   cartItemCount: number;
 };
 
@@ -47,11 +48,9 @@ const initialState: ProductContextType = {
   page: 1,
   totalPages: 0,
   cart: {},
-  addToCart: (productId: string) => {},
+  addToCart: (productId: string, product: Product) => {},
   removeFromCart: (productId: string) => {},
   editCartItem: (productId: string, newQuantity: number) => {},
-  populatedCart: [] as Product[],
-  populateCart: () => {},
   cartItemCount: 0,
 };
 
@@ -66,32 +65,16 @@ export const ProductProvider = ({ children }: ProviderProps) => {
     const storedCart = localStorage.getItem("cart");
     return storedCart ? JSON.parse(storedCart) : {};
   });
-  const [populatedCart, setPopulatedCart] = useState<Product[]>([]);
   const [cartItemCount, setCartItemCount] = useState(0);
 
   const URL = process.env.REACT_APP_URL;
 
   useEffect(() => {
-    const storedCart = localStorage.getItem("cart");
-    if (storedCart) {
-      setCart(JSON.parse(storedCart));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
-
-  useEffect(() => {
-    const count = Object.values(cart).reduce(
-      (total, quantity) => total + quantity,
-      0
-    );
+    const count = Object.values(cart).reduce((total, item) => {
+      return total + item.quantity;
+    }, 0);
     setCartItemCount(count);
-  }, [cart]);
-
-  useEffect(() => {
-    populateCart();
+    localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
   const productsLoader = async (page: number) => {
@@ -116,10 +99,18 @@ export const ProductProvider = ({ children }: ProviderProps) => {
     }
   };
 
-  const addToCart = (productId: string) => {
+  const addToCart = (productId: string, product: Product) => {
     setCart((prevCart) => {
       const updatedCart = { ...prevCart };
-      updatedCart[productId] = (updatedCart[productId] || 0) + 1;
+      if (!updatedCart[productId]) {
+        updatedCart[productId] = {
+          product,
+          quantity: 1,
+        };
+      } else {
+        updatedCart[productId].quantity =
+          (updatedCart[productId].quantity || 0) + 1;
+      }
       return updatedCart;
     });
   };
@@ -127,11 +118,8 @@ export const ProductProvider = ({ children }: ProviderProps) => {
   const removeFromCart = (productId: string) => {
     setCart((prevCart) => {
       const updatedCart = { ...prevCart };
-      if (updatedCart[productId] && updatedCart[productId] > 0) {
-        updatedCart[productId]--;
-        if (updatedCart[productId] === 0) {
-          delete updatedCart[productId];
-        }
+      if (updatedCart[productId]) {
+        delete updatedCart[productId];
       }
       return updatedCart;
     });
@@ -140,38 +128,11 @@ export const ProductProvider = ({ children }: ProviderProps) => {
   const editCartItem = (productId: string, newQuantity: number) => {
     setCart((prevCart) => {
       const updatedCart = { ...prevCart };
-      if (newQuantity <= 0) {
-        delete updatedCart[productId];
-      } else {
-        updatedCart[productId] = newQuantity;
-      }
+
+      updatedCart[productId].quantity = newQuantity;
+
       return updatedCart;
     });
-  };
-
-  async function fetchProduct(productId: string): Promise<Product> {
-    const res = await fetch(`${URL}/products/${productId}`);
-    if (!res.ok) {
-      throw new Error(`Error fetching product ${productId}: ${res.statusText}`);
-    }
-    const productData = await res.json();
-    return productData as Product;
-  }
-
-  const populateCart = async () => {
-    try {
-      const productsWithQuantity: Product[] = [];
-
-      for (const productId in cart) {
-        const product = await fetchProduct(productId);
-        product.quantity = cart[productId];
-        productsWithQuantity.push(product);
-      }
-
-      setPopulatedCart(productsWithQuantity);
-    } catch (err) {
-      console.error("error fetching products", err);
-    }
   };
 
   const contextValue: ProductContextType = {
@@ -185,8 +146,6 @@ export const ProductProvider = ({ children }: ProviderProps) => {
     addToCart,
     removeFromCart,
     editCartItem,
-    populatedCart,
-    populateCart,
     cartItemCount,
   };
 
