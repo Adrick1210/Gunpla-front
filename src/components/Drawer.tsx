@@ -11,6 +11,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import HomeIcon from "@mui/icons-material/Home";
 import { useNavigate } from "react-router-dom";
+import { link } from "fs";
 
 type Props = {
   open: boolean;
@@ -40,18 +41,16 @@ export default function TemporaryDrawer({ open, setDrawerOpen }: Props) {
       </List>
       <Divider />
       <List>
-        {["High Grade", "Master Grade", "Real Grade", "Other"].map(
-          (text) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <BuildIcon />
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          )
-        )}
+      {[{ label: "High Grade", path: "/HighGrade" }, { label: "Master Grade", path: "/MasterGrade" }, { label: "Real Grade", path: "/RealGrade" }, { label: "Other", path: "/Other" }].map((link) => (
+          <ListItem key={link.label} disablePadding>
+            <ListItemButton onClick={() => navigate(link.path)}>
+              <ListItemIcon>
+                <BuildIcon />
+              </ListItemIcon>
+              <ListItemText primary={link.label} />
+            </ListItemButton>
+          </ListItem>
+        ))}
       </List>
 
       <div className="footer">
