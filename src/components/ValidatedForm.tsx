@@ -45,7 +45,7 @@ const ValidatedForm: React.FC = () => {
       >
         {({ errors, touched }) => (
           <Form>
-            <FormControl margin="normal" sx={{ width: "450px" }}>
+            <FormControl margin="normal" sx={{ width: "400px" }}>
               <Field
                 as={TextField}
                 id="name"
@@ -56,7 +56,7 @@ const ValidatedForm: React.FC = () => {
                 helperText={<ErrorMessage name="name" />}
               />
             </FormControl>
-            <FormControl margin="normal" sx={{ width: "450px" }}>
+            <FormControl margin="normal" sx={{ width: "400px" }}>
               <Field
                 as={TextField}
                 id="email"
@@ -67,7 +67,7 @@ const ValidatedForm: React.FC = () => {
                 helperText={<ErrorMessage name="email" />}
               />
             </FormControl>
-            <FormControl margin="normal" sx={{ width: "900px" }}>
+            <FormControl margin="normal" sx={{ width: "300px" }}>
               <Field
                 as={TextField}
                 id="address"

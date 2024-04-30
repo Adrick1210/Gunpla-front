@@ -39,7 +39,7 @@ function Cart() {
   };
 
   const handleCheckClick = () => {
-    navigate("/checkout");
+    navigate("/checkout", {state: {cartTotal} });
   };
 
   return (
