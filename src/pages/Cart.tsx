@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ProductContext } from "../contexts/ProductContext";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Product } from "../contexts/ProductContext";
@@ -12,7 +12,10 @@ import { Button } from "@mui/material";
 
 function Cart() {
   const { cart, removeFromCart, editCartItem } = useContext(ProductContext);
-  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [subPrice, setSubPrice] = useState<number>(0);
+  const navigate = useNavigate();
+  const taxes = 5.55;
+  const shipping = 4.3;
 
   useEffect(() => {
     const total = Object.values(cart).reduce((acc, item) => {
@@ -22,8 +25,10 @@ function Cart() {
         return acc;
       }
     }, 0);
-    setTotalPrice(total);
+    setSubPrice(total);
   }, [cart]);
+
+  const cartTotal = subPrice + taxes + shipping;
 
   const handleRemoveFromCart = (itemId: string) => {
     removeFromCart(itemId);
@@ -34,7 +39,7 @@ function Cart() {
   };
 
   const handleCheckClick = () => {
-    window.location.replace("/checkout");
+    navigate("/checkout", {state: {cartTotal} });
   };
 
   return (
@@ -98,11 +103,21 @@ function Cart() {
         <div className="subtotal-container">
           <Divider />
           <div className="subtotal">
-            <h2>Subtotal: ${totalPrice.toFixed(2)}</h2>
-            <Button variant="contained" color="success" onClick={handleCheckClick} sx={{ height: "40px" }}>
-              Proceed to Checkout
-            </Button>
+            <h4>Cart Total:</h4>
+            <p>Cart Subtotal: ${subPrice.toFixed(2)}</p>
+            <p>Taxes: ${taxes.toFixed(2)}</p>
+            <p>Shipping: ${shipping.toFixed(2)}</p>
+            <Divider />
+            <h4>Total: ${cartTotal.toFixed(2)}</h4>
           </div>
+          <Button
+            variant="contained"
+            color="success"
+            onClick={handleCheckClick}
+            sx={{ height: "40px" }}
+          >
+            Proceed to Checkout
+          </Button>
         </div>
       )}
     </div>

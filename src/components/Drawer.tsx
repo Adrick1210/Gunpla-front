@@ -55,6 +55,7 @@ export default function TemporaryDrawer({ open, setDrawerOpen }: Props) {
       </List>
 
       <div className="footer">
+        <Divider />
         <h4>Adrick-Dev &copy; 2024</h4>
         <div className="icons">
           <Link to="https://github.com/Adrick1210">
