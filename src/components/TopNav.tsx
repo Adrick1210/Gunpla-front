@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 export default function ButtonAppBar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { cartItemCount } = useContext(ProductContext);
+  console.log(cartItemCount);
 
   const handleCartClick = () => {
     window.location.replace("/cart");
