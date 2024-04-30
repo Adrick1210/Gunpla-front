@@ -103,7 +103,6 @@
 }
 
 .subtotal {
-  display: flex;
   justify-content: center;
   align-items: center;
   gap: 40px;
@@ -112,11 +111,13 @@
 
 /* footer info */
 .footer {
+  /* border: 1px solid black; */
+  width: 100%;
   text-align: center;
   opacity: .7;
   position: absolute;
-  bottom:25px;
-  left: 50px;
+  bottom: 8px;
+  left: 0;
 }
 
 .icons {
@@ -128,4 +129,14 @@
 .icons img {
   height: 22px;
   opacity: .7;
+}
+
+/* checkout page */
+.total {
+  padding: 8px;
+  width: 25%;
+  height: 300px;
+  position: fixed;
+  border: 1px solid black;
+  right: 10px;
 }
