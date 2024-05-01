@@ -14,8 +14,6 @@ function Cart() {
   const { cart, removeFromCart, editCartItem } = useContext(ProductContext);
   const [subPrice, setSubPrice] = useState<number>(0);
   const navigate = useNavigate();
-  const taxes = 5.55;
-  const shipping = 4.3;
 
   useEffect(() => {
     const total = Object.values(cart).reduce((acc, item) => {
@@ -28,8 +26,6 @@ function Cart() {
     setSubPrice(total);
   }, [cart]);
 
-  const cartTotal = subPrice + taxes + shipping;
-
   const handleRemoveFromCart = (itemId: string) => {
     removeFromCart(itemId);
   };
@@ -39,7 +35,7 @@ function Cart() {
   };
 
   const handleCheckClick = () => {
-    navigate("/checkout", {state: {cartTotal} });
+    navigate("/checkout", { state: { subPrice } });
   };
 
   return (
@@ -103,18 +99,14 @@ function Cart() {
         <div className="subtotal-container">
           <Divider />
           <div className="subtotal">
-            <h4>Cart Total:</h4>
-            <p>Cart Subtotal: ${subPrice.toFixed(2)}</p>
-            <p>Taxes: ${taxes.toFixed(2)}</p>
-            <p>Shipping: ${shipping.toFixed(2)}</p>
-            <Divider />
-            <h4>Total: ${cartTotal.toFixed(2)}</h4>
+            <h4>Subtotal:</h4>
+            <p>${subPrice.toFixed(2)}</p>
           </div>
           <Button
             variant="contained"
             color="success"
             onClick={handleCheckClick}
-            sx={{ height: "40px" }}
+            sx={{ height: "40px"}}
           >
             Proceed to Checkout
           </Button>
