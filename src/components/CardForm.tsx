@@ -3,6 +3,9 @@ import { useFormik } from "formik";
 import { TextField, Grid } from "@mui/material";
 import * as Yup from "yup";
 
+interface Props {
+  formik: any;
+}
 interface CardInformation {
   cardNumber: string;
   expirationDate: string;
@@ -15,14 +18,14 @@ const validatedSchema = Yup.object().shape({
   cvv: Yup.string().required("CVV is required"),
 });
 
-const CardForm: React.FC = () => {
+const CardForm: React.FC<Props> = ({ formik }) => {
   const [placeholders, setPlaceholders] = useState({
     cardNumber: "0000-0000-0000-0000",
     expirationDate: "MM/YY",
     cvv: "000",
   });
 
-  const formik = useFormik<CardInformation>({
+  const formikProps = useFormik<CardInformation>({
     initialValues: {
       cardNumber: "",
       expirationDate: "",
@@ -77,10 +80,10 @@ const CardForm: React.FC = () => {
               name="cardNumber"
               label="Card Number"
               variant="outlined"
-              value={formik.values.cardNumber}
+              value={formikProps.values.cardNumber}
               onChange={handleCardNumberInput}
-              error={formik.touched.cardNumber && Boolean(formik.errors.cardNumber)}
-              helperText={formik.touched.cardNumber && formik.errors.cardNumber}
+              error={formikProps.touched.cardNumber && Boolean(formikProps.errors.cardNumber)}
+              helperText={formikProps.touched.cardNumber && formikProps.errors.cardNumber}
               placeholder={placeholders.cardNumber}
             />
           </Grid>
@@ -91,10 +94,10 @@ const CardForm: React.FC = () => {
               name="expirationDate"
               label="Expiration Date"
               variant="outlined"
-              value={formik.values.expirationDate}
+              value={formikProps.values.expirationDate}
               onChange={handleExpirationDateInput}
-              error={formik.touched.expirationDate && Boolean(formik.errors.expirationDate)}
-              helperText={formik.touched.expirationDate && formik.errors.expirationDate}
+              error={formikProps.touched.expirationDate && Boolean(formikProps.errors.expirationDate)}
+              helperText={formikProps.touched.expirationDate && formikProps.errors.expirationDate}
               placeholder={placeholders.expirationDate}
             />
           </Grid>
@@ -105,10 +108,10 @@ const CardForm: React.FC = () => {
               name="cvv"
               label="CVV"
               variant="outlined"
-              value={formik.values.cvv}
+              value={formikProps.values.cvv}
               onChange={handleCVVInput}
-              error={formik.touched.cvv && Boolean(formik.errors.cvv)}
-              helperText={formik.touched.cvv && formik.errors.cvv}
+              error={formikProps.touched.cvv && Boolean(formikProps.errors.cvv)}
+              helperText={formikProps.touched.cvv && formikProps.errors.cvv}
               placeholder={placeholders.cvv}
             />
           </Grid>

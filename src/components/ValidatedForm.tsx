@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Button, TextField, FormControl, FormHelperText } from "@mui/material";
+import { TextField, FormControl } from "@mui/material";
 import CustomDropdown from "./CustomDropdown";
 import * as Yup from "yup";
+
+interface Props {
+  formik: any;
+  
+}
 
 const validatedSchema = Yup.object().shape({
   name: Yup.string().required("Name is Required"),
@@ -14,7 +19,7 @@ const validatedSchema = Yup.object().shape({
   state: Yup.string().required("State is Required"),
 });
 
-const ValidatedForm: React.FC = () => {
+const ValidatedForm: React.FC<Props> = ({ formik }) => {
   const [stateValue, setStatValue] = useState("");
 
   const initialValues = {

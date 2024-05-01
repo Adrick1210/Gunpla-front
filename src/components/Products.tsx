@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 import { ProductContext } from "../contexts/ProductContext";
 import ProductCard from "./ProductCard";
 import Grid from "@mui/material/Grid";
@@ -12,6 +12,7 @@ export default function Products() {
     } catch (error) {
       console.error("Error fetching products:", error);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
