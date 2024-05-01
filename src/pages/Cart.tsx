@@ -47,7 +47,6 @@ function Cart() {
         Object.keys(cart).map((productId) => {
           const item = cart[productId].product;
           const quantity = cart[productId].quantity;
-          console.log(item);
           if (item) {
             const productPageUrl = `/products/${item._id}`;
             return (

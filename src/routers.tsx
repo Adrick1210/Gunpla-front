@@ -8,6 +8,7 @@ import ProductPage from "./pages/ProductPage";
 import ProductView from "./pages/ProductView";
 import Cart from "./pages/Cart";
 import Total from "./pages/Total";
+import Order from "./pages/Order";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -16,6 +17,7 @@ const router = createBrowserRouter(
       <Route path="/products/:id" element={<ProductView />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/checkout" element={<Total />} />
+      <Route path="/confirmation" element={<Order />}/>
     </Route>
   )
 );

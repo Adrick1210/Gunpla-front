@@ -1,7 +1,9 @@
 import ValidatedForm from "../components/ValidatedForm";
 import CardForm from "../components/CardForm";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Button, Divider } from "@mui/material";
+import { useContext, useState } from "react";
+import { ProductContext } from "../contexts/ProductContext";
 
 function Total() {
   const location = useLocation();
@@ -9,6 +11,29 @@ function Total() {
   const taxes = 5.55;
   const shipping = 4.3;
   const cartTotal = subPrice + taxes + shipping;
+  const navigate = useNavigate();
+  const { resetCart } = useContext(ProductContext);
+  const [confirmationNumber, setConfirmationNumber] = useState<string>("");
+
+  const generateConfirmationNumber = (length: number) => {
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const charactersLength = characters.length;
+    let result = "";
+
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return result;
+  };
+
+  const handleCheckoutClick = () => {
+    const newConfirmationNumber = generateConfirmationNumber(12);
+    setConfirmationNumber(newConfirmationNumber);
+
+    resetCart();
+    navigate("/confirmation", {state: {confirmationNumber: newConfirmationNumber}});
+  };
 
   return (
     <div>
@@ -40,7 +65,11 @@ function Total() {
           <Divider />
           <h2>Your Total: ${cartTotal.toFixed(2)}</h2>
         </div>
-        <Button variant="contained" color="success">
+        <Button
+          variant="contained"
+          color="success"
+          onClick={handleCheckoutClick}
+        >
           Checkout
         </Button>
       </div>

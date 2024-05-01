@@ -38,6 +38,7 @@ type ProductContextType = {
   removeFromCart: (productId: string) => void;
   editCartItem: (productId: string, newQuantity: number) => void;
   cartItemCount: number;
+  resetCart: () => void;
 };
 
 const initialState: ProductContextType = {
@@ -52,6 +53,7 @@ const initialState: ProductContextType = {
   removeFromCart: (productId: string) => {},
   editCartItem: (productId: string, newQuantity: number) => {},
   cartItemCount: 0,
+  resetCart: () => {},
 };
 
 export const ProductContext = createContext<ProductContextType>(initialState);
@@ -135,6 +137,11 @@ export const ProductProvider = ({ children }: ProviderProps) => {
     });
   };
 
+  const resetCart = () => {
+    setCart({});
+    localStorage.removeItem("cart")
+  }
+
   const contextValue: ProductContextType = {
     products,
     productsLoader,
@@ -147,6 +154,7 @@ export const ProductProvider = ({ children }: ProviderProps) => {
     removeFromCart,
     editCartItem,
     cartItemCount,
+    resetCart,
   };
 
   return (
