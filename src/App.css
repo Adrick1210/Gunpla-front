@@ -79,14 +79,11 @@
 
 /* cart */
 .cart-container {
+  width: 97.5%;
   display: flex;
   flex-direction: column;
   gap: 15px;
   margin-top: 40px;
-}
-
-.cart-container h2 {
-  width: 70%;
 }
 
 .cart-img {
@@ -131,7 +128,6 @@
 
 /* checkout page */
 .checkout-container {
-  /* border: 1px solid black; */
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -141,7 +137,6 @@
 }
 
 .user-info {
-  /* border: 1px solid black; */
   padding: 10px;
   width: 97.5%;
   margin-left: 10px;
@@ -151,7 +146,6 @@
 }
 
 .card-info {
-  /* border: 1px solid black; */
   padding: 10px;
   width: 97.5%;
   margin-left: 10px;
@@ -163,7 +157,7 @@
   position: absolute;
   right: 1px;
   top: 105px;
-  height: 86.5%;
+  height: calc(100vh - 125px);
   width: 20%;
   background-color: rgb(242, 242, 242);
   padding: 10px;
@@ -212,7 +206,7 @@
 
 .button {
   position: absolute;
-  bottom: 5px;
+  bottom: 0;
   right: 1px;
   width: 95%;
   padding: 8px;

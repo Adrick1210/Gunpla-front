@@ -48,11 +48,23 @@ function Cart() {
           if (item) {
             const productPageUrl = `/products/${item._id}`;
             return (
-              <Box  key={item._id} display="flex" flexDirection="row" alignItems="center" justifyContent="flex-start" marginTop={4} marginLeft={35} >
+              <Box
+                key={item._id}
+                display="flex"
+                flexDirection="row"
+                alignItems="center"
+                justifyContent="flex-start"
+                gap={3}
+                margin="20px auto 0 auto"
+              >
                 <Box display="flex" width={200} justifyContent="flex-start">
-                <Link to={productPageUrl}>
-                  <img className="cart-img" src={item.boxArt} alt="cart box art" />
-                </Link>
+                  <Link to={productPageUrl}>
+                    <img
+                      className="cart-img"
+                      src={item.boxArt}
+                      alt="cart box art"
+                    />
+                  </Link>
                 </Box>
                 <Box display="flex" width={200} justifyContent="flex-start">
                   <p>{item.name}</p>
@@ -89,10 +101,10 @@ function Cart() {
                   </FormControl>
                 </Box>
                 <Box display="flex" width={200} justifyContent="flex-start">
-                <DeleteIcon
-                  sx={{ cursor: "pointer" }}
-                  onClick={() => handleRemoveFromCart(item._id)}
-                />
+                  <DeleteIcon
+                    sx={{ cursor: "pointer" }}
+                    onClick={() => handleRemoveFromCart(item._id)}
+                  />
                 </Box>
               </Box>
             );
@@ -107,16 +119,16 @@ function Cart() {
             <h4>Subtotal:</h4>
             <p>${subPrice.toFixed(2)}</p>
           </div>
-          <Divider/>
+          <Divider />
           <div className="button">
-          <Button
-          fullWidth
-            variant="contained"
-            color="success"
-            onClick={handleCheckClick}
-          >
-            Proceed to Checkout
-          </Button>
+            <Button
+              sx={{ width: "75%", marginBottom: "20px" }}
+              variant="contained"
+              color="success"
+              onClick={handleCheckClick}
+            >
+              Proceed to Checkout
+            </Button>
           </div>
         </div>
       )}

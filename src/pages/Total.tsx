@@ -335,9 +335,9 @@ const Total = () => {
           </div>
           <div className="button">
             <Button
+              sx={{ width: "75%", marginBottom: "20px" }}
               color="success"
               variant="contained"
-              fullWidth
               type="submit"
               disabled={!formik.isValid}
             >
