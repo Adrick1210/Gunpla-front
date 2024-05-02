@@ -135,45 +135,73 @@
 
 /* checkout page */
 .checkout-container {
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   gap: 5px;
   margin-top: 10px;
   width: 79%;
-  height: 89.2%;
+  height: 89%;
   position: absolute;
   top: 90px;
   left: 0;
 }
 
 .user-info {
-  border: 1px solid black;
   padding: 10px;
-  width: 95%;
+  width: 49%;
   margin-left: 10px;
   justify-content: center;
   align-items: center;
   margin-top: 10px;
+  position: absolute;
+  left: 290px;
 }
+
 .card-info {
-  border: 1px solid black;
   padding: 10px;
-  width: 95%;
+  width: 45%;
   margin-left: 10px;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  top: 430px;
+  left: 300px;
 }
 
 .cart-total {
-  border: 1px solid black;
   position: absolute;
-  right: 0;
-  top: 100px;
-  height: 87%;
+  right: 5px;
+  top: 109px;
+  height: 85%;
   width: 20%;
-  background-color: rgb(251, 251, 251);
+  background-color: rgb(255, 255, 255);
   padding: 10px;
+}
+
+.form-paper {
+  margin-top: 25px;
+  background-color: none;
+  max-height: 55px;
+}
+
+.word-input {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  margin-left: 120px;
+  justify-content: center;
+}
+
+.number-input {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.card-numbers {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
 }
 
 .price {
