@@ -73,7 +73,8 @@
 }
 
 .product-image img {
-  width: 650px;
+  width: 800px;
+  height: 500px;
 }
 
 /* cart */
@@ -130,43 +131,38 @@
 
 /* checkout page */
 .checkout-container {
+  /* border: 1px solid black; */
   display: flex;
   flex-direction: column;
   gap: 5px;
   margin-top: 10px;
   width: 79%;
-  height: 89%;
-  position: absolute;
-  top: 90px;
-  left: 0;
+  height: 100%;
 }
 
 .user-info {
+  /* border: 1px solid black; */
   padding: 10px;
-  width: 49%;
+  width: 97.5%;
   margin-left: 10px;
-  justify-content: center;
-  align-items: center;
   margin-top: 10px;
-  position: absolute;
-  left: 290px;
+  display: flex;
+  flex-direction: column;
 }
 
 .card-info {
+  /* border: 1px solid black; */
   padding: 10px;
-  width: 45%;
+  width: 97.5%;
   margin-left: 10px;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  top: 430px;
-  left: 330px;
 }
 
 .cart-total {
   position: absolute;
-  right: 1ch;
-  top: 104px;
+  right: 1px;
+  top: 105px;
   height: 86.5%;
   width: 20%;
   background-color: rgb(242, 242, 242);
@@ -183,7 +179,7 @@
   display: flex;
   flex-direction: column;
   width: 500px;
-  margin-left: 120px;
+  margin: 0 auto;
   justify-content: center;
 }
 
@@ -191,11 +187,12 @@
   display: flex;
   gap: 10px;
   justify-content: center;
+  align-items: center;
 }
 
 .number {
   width: 500px;
-  margin-left: 90px;
+  margin: 0 auto;
 }
 
 .card-numbers {
@@ -215,7 +212,7 @@
 
 .button {
   position: absolute;
-  bottom: 10px;
+  bottom: 5px;
   right: 1px;
   width: 95%;
   padding: 8px;
