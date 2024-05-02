@@ -39,7 +39,6 @@ function Cart() {
 
   return (
     <div className="cart-container">
-      <h2>Your Cart:</h2>
       {Object.keys(cart).length === 0 ? (
         <h1>Your Cart is Empty!</h1>
       ) : (
@@ -108,6 +107,7 @@ function Cart() {
             <h4>Subtotal:</h4>
             <p>${subPrice.toFixed(2)}</p>
           </div>
+          <Divider/>
           <div className="button">
           <Button
           fullWidth
