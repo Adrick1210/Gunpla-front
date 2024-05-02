@@ -7,7 +7,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { Button, Divider, Box, Grid } from "@mui/material";
+import { Button, Divider, Box } from "@mui/material";
 
 function Cart() {
   const { cart, removeFromCart, editCartItem } = useContext(ProductContext);
@@ -39,7 +39,7 @@ function Cart() {
 
   return (
     <div className="cart-container">
-      <h1>Cart</h1>
+      <h2>Your Cart:</h2>
       {Object.keys(cart).length === 0 ? (
         <h1>Your Cart is Empty!</h1>
       ) : (
@@ -49,7 +49,7 @@ function Cart() {
           if (item) {
             const productPageUrl = `/products/${item._id}`;
             return (
-              <Box  key={item._id} display="flex" flexDirection="row" alignItems="center" justifyContent="center" marginTop={4}>
+              <Box  key={item._id} display="flex" flexDirection="row" alignItems="center" justifyContent="flex-start" marginTop={4} marginLeft={35} >
                 <Box display="flex" width={200} justifyContent="flex-start">
                 <Link to={productPageUrl}>
                   <img className="cart-img" src={item.boxArt} alt="cart box art" />
@@ -102,20 +102,22 @@ function Cart() {
         })
       )}
       {Object.keys(cart).length > 0 && (
-        <div className="subtotal-container">
-          <Divider />
-          <div className="subtotal">
+        <div className="cart-total">
+          <h2>Cart Summary</h2>
+          <div className="price">
             <h4>Subtotal:</h4>
             <p>${subPrice.toFixed(2)}</p>
           </div>
+          <div className="button">
           <Button
+          fullWidth
             variant="contained"
             color="success"
             onClick={handleCheckClick}
-            sx={{ height: "40px" }}
           >
             Proceed to Checkout
           </Button>
+          </div>
         </div>
       )}
     </div>
