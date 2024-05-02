@@ -3,12 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { ProductContext } from "../contexts/ProductContext";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Product } from "../contexts/ProductContext";
-import { Divider } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { Button } from "@mui/material";
+import { Button, Divider, Box, Grid } from "@mui/material";
 
 function Cart() {
   const { cart, removeFromCart, editCartItem } = useContext(ProductContext);
@@ -50,45 +49,53 @@ function Cart() {
           if (item) {
             const productPageUrl = `/products/${item._id}`;
             return (
-              <div className="cart-card" key={item._id}>
+              <Box  key={item._id} display="flex" flexDirection="row" alignItems="center" justifyContent="center" marginTop={4}>
+                <Box display="flex" width={200} justifyContent="flex-start">
                 <Link to={productPageUrl}>
-                  <img src={item.boxArt} alt="cart box art" />
+                  <img className="cart-img" src={item.boxArt} alt="cart box art" />
                 </Link>
-                <p>{item.name}</p>
-                <p>${item.price.$numberDecimal}</p>
-
-                <FormControl
-                  sx={{
-                    minWidth: "80px",
-                    marginLeft: "10px",
-                    marginRight: "10px",
-                  }}
-                >
-                  <InputLabel id="demo-simple-select-label">
-                    Quantity
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={quantity}
-                    label="quantity"
-                    onChange={(e) => handleEdit(item, Number(e.target.value))}
+                </Box>
+                <Box display="flex" width={200} justifyContent="flex-start">
+                  <p>{item.name}</p>
+                </Box>
+                <Box display="flex" width={200} justifyContent="flex-start">
+                  <p>${item.price.$numberDecimal}</p>
+                </Box>
+                <Box display="flex" width={200} justifyContent="flex-start">
+                  <FormControl
+                    sx={{
+                      minWidth: "80px",
+                      marginLeft: "10px",
+                      marginRight: "10px",
+                    }}
                   >
-                    {Array.from({ length: 10 }, (_, index) => index + 1).map(
-                      (num) => (
-                        <MenuItem value={num} key={num}>
-                          {num}
-                        </MenuItem>
-                      )
-                    )}
-                  </Select>
-                </FormControl>
-
+                    <InputLabel id="demo-simple-select-label">
+                      Quantity
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={quantity}
+                      label="quantity"
+                      onChange={(e) => handleEdit(item, Number(e.target.value))}
+                    >
+                      {Array.from({ length: 10 }, (_, index) => index + 1).map(
+                        (num) => (
+                          <MenuItem value={num} key={num}>
+                            {num}
+                          </MenuItem>
+                        )
+                      )}
+                    </Select>
+                  </FormControl>
+                </Box>
+                <Box display="flex" width={200} justifyContent="flex-start">
                 <DeleteIcon
                   sx={{ cursor: "pointer" }}
                   onClick={() => handleRemoveFromCart(item._id)}
                 />
-              </div>
+                </Box>
+              </Box>
             );
           }
           return null;
@@ -105,7 +112,7 @@ function Cart() {
             variant="contained"
             color="success"
             onClick={handleCheckClick}
-            sx={{ height: "40px"}}
+            sx={{ height: "40px" }}
           >
             Proceed to Checkout
           </Button>
