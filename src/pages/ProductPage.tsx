@@ -1,11 +1,16 @@
 import Products from "../components/Products";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ProductContext } from "../contexts/ProductContext";
 
 function Index() {
   const { page, totalPages, productsLoader } = useContext(ProductContext);
+
+  useEffect(() => {
+    window.scroll(0,0);
+  }, [page]);
+
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     productsLoader(value);
   };

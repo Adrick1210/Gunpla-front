@@ -9,18 +9,21 @@ import { useNavigate } from "react-router-dom";
 
 export default function ProductCard({ product }: { product: Product }) {
   const navigate = useNavigate();
-  
+
   return (
-    <Card sx={{ maxWidth: 325 }} onClick={() => navigate(`/products/${product._id}`)}>
+    <Card
+      sx={{ maxWidth: 325, height: 250 }}
+      onClick={() => navigate(`/products/${product._id}`)}
+    >
       <CardActionArea>
         <CardMedia
           component="img"
-          height="140"
+          height="170"
           image={product.boxArt}
           alt="Box art"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h3" fontSize={17} component="div">
             {product.name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
