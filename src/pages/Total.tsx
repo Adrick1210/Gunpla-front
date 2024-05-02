@@ -124,10 +124,10 @@ const Total = () => {
 
     return result;
   };
-   
+
   const handleCardNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value.replace(/\D/g, ""); // Remove non-digit characters
-    if (inputValue.length <= 16) { 
+    if (inputValue.length <= 16) {
       const formattedValue = inputValue.replace(/(\d{4})(?=\d)/g, "$1-"); // Add dashes every 4 characters
       formik.setFieldValue("cardNumber", formattedValue);
       setPlaceholders((prevPlaceholders) => ({
@@ -137,9 +137,12 @@ const Total = () => {
     }
   };
 
-  const handleExpirationDateInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleExpirationDateInput = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const inputValue = e.target.value.replace(/\D/g, ""); // Remove non-digit characters
-    if (inputValue.length <= 4) { // Limit to 4 characters (MM/YY format)
+    if (inputValue.length <= 4) {
+      // Limit to 4 characters (MM/YY format)
       const formattedValue = inputValue.replace(/(\d{2})(?=\d)/g, "$1/"); // Add slash every 2 characters
       formik.setFieldValue("expirationDate", formattedValue);
       setPlaceholders((prevPlaceholders) => ({
@@ -151,7 +154,8 @@ const Total = () => {
 
   const handleCVVInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value.replace(/\D/g, ""); // Remove non-digit characters
-    if (inputValue.length <= 3) { // Limit to 3 digits
+    if (inputValue.length <= 3) {
+      // Limit to 3 digits
       formik.setFieldValue("cvv", inputValue);
       setPlaceholders((prevPlaceholders) => ({
         ...prevPlaceholders,
@@ -249,24 +253,27 @@ const Total = () => {
           </div>
           <div className="card-info">
             <h3>Card Information</h3>
-            <Paper elevation={3} className="form-paper">
-              <TextField
-                fullWidth
-                id="cardNumber"
-                name="cardNumber"
-                label="Card Number"
-                value={formik.values.cardNumber}
-                onChange={handleCardNumberInput}
-                onBlur={formik.handleBlur}
-                error={
-                  formik.touched.cardNumber && Boolean(formik.errors.cardNumber)
-                }
-                helperText={
-                  formik.touched.cardNumber && formik.errors.cardNumber
-                }
-                placeholder={placeholders.cardNumber}
-              />
-            </Paper>
+            <div className="number">
+              <Paper elevation={3} className="form-paper">
+                <TextField
+                  sx={{ width: "500px" }}
+                  id="cardNumber"
+                  name="cardNumber"
+                  label="Card Number"
+                  value={formik.values.cardNumber}
+                  onChange={handleCardNumberInput}
+                  onBlur={formik.handleBlur}
+                  error={
+                    formik.touched.cardNumber &&
+                    Boolean(formik.errors.cardNumber)
+                  }
+                  helperText={
+                    formik.touched.cardNumber && formik.errors.cardNumber
+                  }
+                  placeholder={placeholders.cardNumber}
+                />
+              </Paper>
+            </div>
             <div className="card-numbers">
               <Paper elevation={3} className="form-paper">
                 <TextField

@@ -165,7 +165,7 @@
   align-items: center;
   position: absolute;
   top: 430px;
-  left: 300px;
+  left: 330px;
 }
 
 .cart-total {
@@ -198,6 +198,11 @@
   justify-content: center;
 }
 
+.number {
+  width: 500px;
+  margin-left: 90px;
+}
+
 .card-numbers {
   display: flex;
   gap: 20px;
@@ -223,6 +228,6 @@
 
 /* order page */
 .confirmation img {
-  width: 500px;
+  width: 800px;
   border-radius: 20px;
 }
