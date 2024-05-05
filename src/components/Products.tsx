@@ -18,7 +18,8 @@ export default function Products() {
   return (
     <div style={{
       width: "80%",
-      margin: "0 auto"
+      margin: "0 auto",
+      justifyContent: "center",
     }}>
       <Grid container spacing={3} >
         {products.map((product) => {

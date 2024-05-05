@@ -1,6 +1,7 @@
 import Products from "../components/Products";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import Carousel from "../components/Carousel";
 import { useContext, useEffect } from "react";
 import { ProductContext } from "../contexts/ProductContext";
 
@@ -14,14 +15,10 @@ function Index() {
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     productsLoader(value);
   };
+
   return (
     <div className="main-container">
-      <div className="showcase">
-        <img
-          src="https://shop.bandaicollectors.com.mx/cdn/shop/collections/HeadersCategorias-1920-x-480-Gunpla.jpg?v=1703908536"
-          alt="banner"
-        />
-      </div>
+      <Carousel />
       <Products />
 
       <Stack
