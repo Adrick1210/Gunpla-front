@@ -18,7 +18,7 @@ function Dashboard() {
 
   return (
     <div>
-      <h1>Admin Portal</h1>
+      <h1>Admin Controls</h1>
       <h2>Item List:</h2>
       {products.map((product) => (
         <Box key={product._id}
@@ -28,17 +28,17 @@ function Dashboard() {
         justifyContent="center"
         gap={3}
         margin="20px auto 0 auto">
-        <Box>
+        <Box display="flex" width={250} justifyContent="flex-start">
           <h3 key={product._id}>
             {product.name}
           </h3>
         </Box>
-        <Box>
+        <Box display="flex" width={100} justifyContent="center">
         <BorderColorIcon
           sx={{ cursor: "pointer" }}
         />
       </Box>
-        <Box>
+        <Box display="flex" width={100} justifyContent="center">
         <DeleteIcon
           sx={{ cursor: "pointer" }}
         />
