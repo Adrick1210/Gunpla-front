@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { ProductContext } from "../contexts/ProductContext";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
@@ -31,6 +31,15 @@ function Dashboard() {
   return (
     <div>
       <h1>Admin Controls</h1>
+      <Link to="/admin/create">
+        <Button
+          sx={{ marginBottom: "20px" }}
+          variant="contained"
+          color="success"
+        >
+          Add
+        </Button>
+      </Link>
       <h2>Item List:</h2>
       {products.map((product) => (
         <Box
@@ -46,9 +55,9 @@ function Dashboard() {
             <h3 key={product._id}>{product.name}</h3>
           </Box>
           <Link
-                to={`/update/${product._id}`}
-                style={{ color: "inherit", textDecoration: "none" }}
-              >
+            to={`/admin/update/${product._id}`}
+            style={{ color: "inherit", textDecoration: "none" }}
+          >
             <Box display="flex" width={100} justifyContent="center">
               <BorderColorIcon sx={{ cursor: "pointer" }} />
             </Box>
