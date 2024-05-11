@@ -10,6 +10,7 @@ import Cart from "./pages/Cart";
 import Total from "./pages/Total";
 import Order from "./pages/Order";
 import Dashboard from "./admin/Dashboard";
+import UpdateForm from "./admin/UpdateForm";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,10 +19,11 @@ const router = createBrowserRouter(
       <Route path="/products/:id" element={<ProductView />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/checkout" element={<Total />} />
-      <Route path="/confirmation" element={<Order />}/>
-      <Route path="/admin" element={<Dashboard />}/>
+      <Route path="/confirmation" element={<Order />} />
+      <Route path="/admin" element={<Dashboard />}>
+        <Route path="update/:id" element={<UpdateForm />} />
+      </Route>
     </Route>
-    
   )
 );
 

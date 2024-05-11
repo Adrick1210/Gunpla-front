@@ -5,6 +5,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Box } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import { Link } from "react-router-dom";
 
 function Dashboard() {
   const { products, page, totalPages, productsLoader } =
@@ -20,7 +21,7 @@ function Dashboard() {
   }, []);
 
   useEffect(() => {
-    window.scroll(0,0);
+    window.scroll(0, 0);
   }, [page]);
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -44,9 +45,14 @@ function Dashboard() {
           <Box display="flex" width={250} justifyContent="flex-start">
             <h3 key={product._id}>{product.name}</h3>
           </Box>
-          <Box display="flex" width={100} justifyContent="center">
-            <BorderColorIcon sx={{ cursor: "pointer" }} />
-          </Box>
+          <Link
+                to={`/update/${product._id}`}
+                style={{ color: "inherit", textDecoration: "none" }}
+              >
+            <Box display="flex" width={100} justifyContent="center">
+              <BorderColorIcon sx={{ cursor: "pointer" }} />
+            </Box>
+          </Link>
           <Box display="flex" width={100} justifyContent="center">
             <DeleteIcon sx={{ cursor: "pointer" }} />
           </Box>
@@ -59,7 +65,12 @@ function Dashboard() {
         alignItems={"center"}
         paddingTop={3}
       >
-        <Pagination count={totalPages} shape="rounded" page={page} onChange={handleChange}/>
+        <Pagination
+          count={totalPages}
+          shape="rounded"
+          page={page}
+          onChange={handleChange}
+        />
       </Stack>
     </div>
   );
