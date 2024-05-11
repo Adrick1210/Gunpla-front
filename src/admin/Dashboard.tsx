@@ -40,7 +40,7 @@ function Dashboard() {
           Add
         </Button>
       </Link>
-      <h2>Item List:</h2>
+      <h2>Current Inventory:</h2>
       {products.map((product) => (
         <Box
           key={product._id}
