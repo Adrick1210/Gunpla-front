@@ -1,10 +1,12 @@
 import React from "react";
 import { TextField, Paper } from "@mui/material";
+import AdminNav from "./AdminNav";
 
 function CreateForm() {
 
   return (
     <div>
+      <AdminNav />
       <h1>Add to Inventory </h1>
       <Paper elevation={3} className="form-paper">
         <TextField sx={{ width: "500px" }} id="name" name="name" label="Name" />

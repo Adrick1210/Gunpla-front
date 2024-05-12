@@ -6,6 +6,7 @@ import { Box, Button } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
+import AdminNav from "./AdminNav";
 
 function Dashboard() {
   const { products, page, totalPages, productsLoader } =
@@ -30,16 +31,7 @@ function Dashboard() {
 
   return (
     <div>
-      <h1>Admin Controls</h1>
-      <Link to="/admin/create">
-        <Button
-          sx={{ marginBottom: "20px" }}
-          variant="contained"
-          color="success"
-        >
-          Add
-        </Button>
-      </Link>
+      <AdminNav />
       <h2>Current Inventory:</h2>
       {products.map((product) => (
         <Box
